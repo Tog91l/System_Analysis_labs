@@ -1,0 +1,31 @@
+import csv
+
+with open("task0/task2.csv", "r", encoding="utf-8") as f:
+    csv_data = f.read()
+
+def main(csv_graph: str) -> list[list[int]]:
+    edges = []
+    vertices = set()
+
+    lines = [line.strip() for line in csv_graph.strip().splitlines() if line.strip()]
+    for line in lines:
+        u, v = map(int, line.split(",")) 
+        edges.append((u, v))
+        vertices.add(u)
+        vertices.add(v)
+    vertices = sorted(vertices)
+    n = len(vertices)
+    index = {vertices[i]: i for i in range(n)}
+    matrix = [[0] * n for _ in range(n)]
+
+    for u, v in edges:
+        i = index[u]
+        j = index[v]
+        matrix[i][j] = 1
+        matrix[j][i] = 1  
+
+    return matrix
+matrix = main(csv_data)
+
+for row in matrix:
+    print(*row, sep="\t")
