@@ -1,9 +1,5 @@
 import numpy as np
 
-with open("tasks/task2.csv", "r", encoding="utf-8") as file:
-    raw_data = file.read().split("\n")
-
-
 def process_graph(data_lines: list[str]) -> None:
     connections = []
     nodes = set()
@@ -29,7 +25,7 @@ def process_graph(data_lines: list[str]) -> None:
     # Матрица обратных связей
     reverse_rel = direct_rel.T
 
-    # Матрица косвенных связей
+    # Матрица косвенных связей (транзитивное замыкание)
     transitive_rel = direct_rel.copy()
     for k in range(size):
         for i in range(size):
@@ -64,4 +60,12 @@ def process_graph(data_lines: list[str]) -> None:
     show_matrix(peer_rel, "5) Соподчинение")
 
 
-process_graph(raw_data)
+def main():
+    with open("tasks/task1/task1.csv", "r", encoding="utf-8") as file:
+        raw_data = file.read().split("\n")
+
+    process_graph(raw_data)
+
+
+if __name__ == "__main__":
+    main()
