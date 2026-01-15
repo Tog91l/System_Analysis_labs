@@ -1,4 +1,6 @@
 import numpy as np
+import os
+
 
 def process_graph(data_lines: list[str]) -> None:
     connections = []
@@ -60,12 +62,11 @@ def process_graph(data_lines: list[str]) -> None:
     show_matrix(peer_rel, "5) Соподчинение")
 
 
-def main():
-    with open("tasks/task1/task1.csv", "r", encoding="utf-8") as file:
+if __name__ == "__main__":
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    csv_path = os.path.join(current_dir, "task1.csv")
+
+    with open(csv_path, "r", encoding="utf-8") as file:
         raw_data = file.read().split("\n")
 
     process_graph(raw_data)
-
-
-if __name__ == "__main__":
-    main()
